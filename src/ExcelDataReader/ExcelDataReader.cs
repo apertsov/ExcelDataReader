@@ -126,6 +126,13 @@ namespace ExcelDataReader
             return RowCells[i]?.Value;
         }
 
+        public string GetRawValue(int i)
+        {
+            if (RowCells == null)
+                throw new InvalidOperationException("No data exists for the row/column.");
+            return RowCells[i]?.RawValue;
+        }
+
         public int GetValues(object[] values) => throw new NotSupportedException();
                
         public bool IsDBNull(int i) => GetValue(i) == null;

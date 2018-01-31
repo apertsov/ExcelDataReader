@@ -453,13 +453,19 @@ namespace ExcelDataReader.Core.OpenXmlFormat
                 {
                     var rawValue = xmlReader.ReadElementContentAsString();
                     if (!string.IsNullOrEmpty(rawValue))
+                    {
+                        result.RawValue = rawValue;
                         result.Value = ConvertCellValue(rawValue, aT, result.NumberFormatIndex);
+                    }
                 }
                 else if (xmlReader.IsStartElement(NIs, NsSpreadsheetMl))
                 {
                     var rawValue = ReadInlineString(xmlReader);
                     if (!string.IsNullOrEmpty(rawValue))
+                    {
+                        result.RawValue = rawValue;
                         result.Value = ConvertCellValue(rawValue, aT, result.NumberFormatIndex);
+                    }
                 }
                 else if (!XmlReaderHelper.SkipContent(xmlReader))
                 {
