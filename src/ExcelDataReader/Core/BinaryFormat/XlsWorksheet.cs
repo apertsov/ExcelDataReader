@@ -253,6 +253,7 @@ namespace ExcelDataReader.Core.BinaryFormat
                         {
                             ColumnIndex = j,
                             Value = TryConvertOADateTime(rkCell.GetValue(j), numberFormatIndex),
+                            RawValue = TryConvertOADateTime(rkCell.GetValue(j), numberFormatIndex).ToString(),
                             NumberFormatIndex = numberFormatIndex
                         };
 
@@ -288,33 +289,46 @@ namespace ExcelDataReader.Core.BinaryFormat
             {
                 case BIFFRECORDTYPE.BOOLERR:
                     if (cell.ReadByte(7) == 0)
+                    {
                         result.Value = cell.ReadByte(6) != 0;
+                        result.RawValue = result.Value.ToString();
+                    }
+
                     break;
                 case BIFFRECORDTYPE.BOOLERR_OLD:
                     if (cell.ReadByte(8) == 0)
+                    {
                         result.Value = cell.ReadByte(7) != 0;
+                        result.RawValue = result.Value.ToString();
+                    }
+
                     break;
                 case BIFFRECORDTYPE.INTEGER:
                 case BIFFRECORDTYPE.INTEGER_OLD:
                     intValue = ((XlsBiffIntegerCell)cell).Value;
                     result.Value = TryConvertOADateTime(intValue, numberFormatIndex);
+                    result.RawValue = result.Value.ToString();
                     break;
                 case BIFFRECORDTYPE.NUMBER:
                 case BIFFRECORDTYPE.NUMBER_OLD:
                     doubleValue = ((XlsBiffNumberCell)cell).Value;
                     result.Value = TryConvertOADateTime(doubleValue, numberFormatIndex);
+                    result.RawValue = result.Value.ToString();
                     break;
                 case BIFFRECORDTYPE.LABEL:
                 case BIFFRECORDTYPE.LABEL_OLD:
                 case BIFFRECORDTYPE.RSTRING:
                     result.Value = ((XlsBiffLabelCell)cell).GetValue(Encoding);
+                    result.RawValue = ((XlsBiffLabelCell)cell).GetValue(Encoding);
                     break;
                 case BIFFRECORDTYPE.LABELSST:
                     result.Value = Workbook.SST.GetString(((XlsBiffLabelSSTCell)cell).SSTIndex, Encoding);
+                    result.RawValue = Workbook.SST.GetString(((XlsBiffLabelSSTCell)cell).SSTIndex, Encoding);
                     break;
                 case BIFFRECORDTYPE.RK:
                     doubleValue = ((XlsBiffRKCell)cell).Value;
                     result.Value = TryConvertOADateTime(doubleValue, numberFormatIndex);
+                    result.RawValue = result.Value.ToString();
                     break;
                 case BIFFRECORDTYPE.BLANK:
                 case BIFFRECORDTYPE.BLANK_OLD:
@@ -326,6 +340,7 @@ namespace ExcelDataReader.Core.BinaryFormat
                 case BIFFRECORDTYPE.FORMULA_V4:
                     objectValue = TryGetFormulaValue(biffStream, (XlsBiffFormulaCell)cell, numberFormatIndex);
                     result.Value = objectValue;
+                    result.RawValue = result.Value.ToString();
                     break;
             }
 
