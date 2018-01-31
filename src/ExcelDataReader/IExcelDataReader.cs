@@ -58,5 +58,12 @@ namespace ExcelDataReader
         /// <param name="i">The index of the field to find.</param>
         /// <returns>The number format string of the specified field.</returns>
         string GetNumberFormatString(int i);
+
+        /// <summary>
+        /// Gets the the raw value of the specified field.
+        /// </summary>
+        /// <param name="i">The index of the field to find.</param>
+        /// <returns>The string which will contain the field raw value upon return.</returns>
+        string GetRawValue(int i);
     }
 }
