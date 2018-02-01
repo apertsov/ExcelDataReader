@@ -76,14 +76,14 @@ namespace ExcelDataReader
 
         public object this[string name] => throw new NotSupportedException();
 
-        public bool GetBoolean(int i) => (bool)GetValue(i);
+        public bool GetBoolean(int i) => Convert.ToBoolean(GetValue(i));
 
-        public byte GetByte(int i) => (byte)GetValue(i);
+        public byte GetByte(int i) => Convert.ToByte(GetValue(i));
 
         public long GetBytes(int i, long fieldOffset, byte[] buffer, int bufferoffset, int length)
             => throw new NotSupportedException();
 
-        public char GetChar(int i) => (char)GetValue(i);
+        public char GetChar(int i) => Convert.ToChar(GetValue(i));
 
         public long GetChars(int i, long fieldoffset, char[] buffer, int bufferoffset, int length)
              => throw new NotSupportedException();
@@ -92,23 +92,23 @@ namespace ExcelDataReader
 
         public string GetDataTypeName(int i) => throw new NotSupportedException();
 
-        public DateTime GetDateTime(int i) => (DateTime)GetValue(i);
+        public DateTime GetDateTime(int i) => Convert.ToDateTime(GetValue(i));
 
-        public decimal GetDecimal(int i) => (decimal)GetValue(i);
+        public decimal GetDecimal(int i) => Convert.ToDecimal(GetValue(i));
 
-        public double GetDouble(int i) => (double)GetValue(i);
+        public double GetDouble(int i) => Convert.ToDouble(GetValue(i));
 
         public Type GetFieldType(int i) => GetValue(i)?.GetType();
 
-        public float GetFloat(int i) => (float)GetValue(i);
+        public float GetFloat(int i) => Convert.ToSingle(GetValue(i));
 
-        public Guid GetGuid(int i) => (Guid)GetValue(i);
+        public Guid GetGuid(int i) => new Guid(Convert.ToString(GetValue(i)));
 
-        public short GetInt16(int i) => (short)GetValue(i);
+        public short GetInt16(int i) => Convert.ToInt16(GetValue(i));
 
-        public int GetInt32(int i) => (int)GetValue(i);
+        public int GetInt32(int i) => Convert.ToInt32(GetValue(i));
 
-        public long GetInt64(int i) => (long)GetValue(i);
+        public long GetInt64(int i) => Convert.ToInt64(GetValue(i));
 
         public string GetName(int i) => throw new NotSupportedException();
 
@@ -117,7 +117,7 @@ namespace ExcelDataReader
         /// <inheritdoc />
         public DataTable GetSchemaTable() => throw new NotSupportedException();
 
-        public string GetString(int i) => (string)GetValue(i);
+        public string GetString(int i) => Convert.ToString(GetValue(i));
 
         public object GetValue(int i)
         {
