@@ -454,6 +454,12 @@ namespace ExcelDataReader.Core.OpenXmlFormat
                     var rawValue = xmlReader.ReadElementContentAsString();
                     if (!string.IsNullOrEmpty(rawValue))
                     {
+                        decimal decTmp;
+                        if (decimal.TryParse(rawValue, NumberStyles.Any, CultureInfo.InvariantCulture.NumberFormat, out decTmp))
+                        {
+                            rawValue = Convert.ToString(decTmp, CultureInfo.InvariantCulture);
+                        }
+
                         result.RawValue = rawValue;
                         result.Value = ConvertCellValue(rawValue, aT, result.NumberFormatIndex);
                     }
